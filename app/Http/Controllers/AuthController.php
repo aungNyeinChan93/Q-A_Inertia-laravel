@@ -16,13 +16,20 @@ class AuthController extends Controller
 
     // store
     public function store(Request $request){
+
             $fields = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8',
+            'image'=>'nullable|file|image'
         ]);
 
+        if($request->hasFile('image')){
+            $path = $request->file('image')->store('avators','public');
+            $fields['image']= $path;
+        }
+        
         $user = User::create($fields);
 
         Auth::login($user);

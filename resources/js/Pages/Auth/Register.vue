@@ -16,6 +16,22 @@
                 <form @submit.prevent="formSubmit" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                     <p class="text-center text-lg font-medium">Sign up to your account</p>
 
+                    <div >
+                        <label for="image" class="sr-only">Avator</label>
+                        <div class="relative">
+                            <div v-show="preview" class="mx-auto bg-gray-100 p-2 mb-1 rounded">
+                                <img :src="preview" alt="" class="w-[150px] ms-[145px] p-2 rounded-xl">
+                            </div>
+                            <input type="file" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                :class="{ 'border border-red-600': $page.props.errors.image }"
+                                placeholder="Avator" @input="change" />
+
+                            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+                            </span>
+                        </div>
+                        <div class="text-red-600 text-sm px-2 py-1 ">{{ $page.props.errors.image }}</div>
+                    </div>
+
                     <div>
                         <label for="name" class="sr-only">Name</label>
                         <div class="relative">
@@ -113,6 +129,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import Second from '../Layout/Second.vue';
 import { useForm } from '@inertiajs/vue3';
 defineOptions({
@@ -124,12 +141,21 @@ const form = useForm({
     email: null,
     password: null,
     password_confirmation: null,
+    image:null,
 });
 
 const formSubmit = () => {
     form.post('/register', {
         onError: () => form.reset('password', 'password_confirmation')
     }, { preserveState: true });
+}
+
+const preview = ref('');
+
+const change=(e)=>{
+    // console.log(e.target.files[0]);
+    form.image = e.target.files[0];
+    preview.value =URL.createObjectURL(e.target.files[0]);
 }
 
 

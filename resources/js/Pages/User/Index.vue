@@ -1,4 +1,5 @@
 <template>
+
     <Head title="Users" />
     <div class="mx-10 flex">
         <p class="py-2 bg-green-400 rounded-sm w-[200px] text-xl text-center">User List</p>
@@ -19,7 +20,8 @@
             <tbody class="divide-y divide-gray-200">
                 <tr v-for="user in users.data" :key="user.id">
                     <td class="whitespace-nowrap ps-5 py-2 font-medium text-gray-900">
-                        <img :src="user.image" class="w-[70px] rounded-xl p-1" alt="">
+                        <img :src="user.image ? `storage/${user.image}` : `storage/avators/default.png`"
+                            class="w-[60px] h-[55px] rounded-xl p-1" alt="">
                     </td>
                     <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{{ user.name }}</td>
                     <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ user.email }}</td>
@@ -40,7 +42,8 @@
 
     <div class="paginater mx-10 py-4 px-2 flex justify-between items-center">
         <div>
-            <Link :class="{'bg-red-400': link.active ,'text-gray-200/50 bg-green-300/80':!link.url }" class="px-2 py-1 rounded-xl bg-green-400 ms-2" v-for="link in users.links" :key="link.label"
+            <Link :class="{ 'bg-red-400': link.active, 'text-gray-200/50 bg-green-300/80': !link.url }"
+                class="px-2 py-1 rounded-xl bg-green-400 ms-2" v-for="link in users.links" :key="link.label"
                 :href="link.url" v-html="link.label" />
         </div>
         <p class="text-green-500/90 text-sm t">Showing from {{ users.from }} to {{ users.to }} of {{ users.total }}</p>
