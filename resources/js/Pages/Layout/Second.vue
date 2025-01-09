@@ -17,13 +17,13 @@
 
                     <div class="flex items-center gap-4">
                         <div class="sm:flex sm:gap-4">
-                            <Link class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+                            <Link :class="{'bg-gray-600':$page.component == 'Auth/Login'}" class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 shadow"
                                 href="/login">
                                 Login
                             </Link>
 
                             <div class="hidden sm:flex">
-                                <Link class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                                <Link :class="{'bg-gray-600':$page.component == 'Auth/Register'}" class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
                                     href="/register">
                                     Register
                                 </Link>

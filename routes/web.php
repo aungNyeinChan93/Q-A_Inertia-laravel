@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -14,3 +15,5 @@ Route::get('/login',[AuthController::class,'login'])->name('login');
 Route::post('/login',[AuthController::class,'loginStore'])->name('login.store');
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
+// users
+Route::get('users',[UserController::class,'index'])->name('users.index');

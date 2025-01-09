@@ -23,7 +23,7 @@
                                 </li>
 
                                 <li>
-                                    <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Careers </a>
+                                    <Link class="text-gray-500 transition hover:text-gray-500/75" :href="route('users.index')"> Users </Link>
                                 </li>
 
                                 <li>
@@ -47,7 +47,9 @@
 
                     <div class="flex items-center gap-4">
                         <div class="sm:flex sm:gap-4">
-                            <Link v-if="!$page.props.auth.user" class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+                            <Link v-if="!$page.props.auth.user"
+                            :class="{'bg-gray-600':$page.component == 'Auth/login'}"
+                            class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-white shadow"
                                 :href="route('login')">
                                 Login
                             </Link>
@@ -60,7 +62,9 @@
                             </div>
 
                             <div class="hidden sm:flex">
-                                <Link v-if="$page.props.auth.user" as="button" method="post" class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                                <Link v-if="$page.props.auth.user"
+                                    :class="{'bg-gray-600':$page.component == 'Auth/Logout'}"
+                                as="button" method="post" class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
                                     :href="route('logout')">
                                     Logout
                                 </Link>
