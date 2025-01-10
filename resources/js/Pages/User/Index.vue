@@ -1,8 +1,11 @@
 <template>
 
     <Head title="Users" />
-    <div class="mx-10 flex">
+    <div class="mx-10 flex justify-between items-center">
         <p class="py-2 bg-green-400 rounded-sm w-[200px] text-xl text-center">User List</p>
+        <div>
+            <input type="search" v-model="search" class="p-2 border border-green-300 rounded-sm" placeholder="search">
+        </div>
     </div>
     <div class="overflow-x-auto mx-10 mt-4">
         <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm border">
@@ -52,12 +55,26 @@
 
 
 <script setup>
+import { throttle } from 'lodash';
+import { ref, watch } from 'vue';
+import { router, usePage } from '@inertiajs/vue3';
+
+
 defineProps({
     users: {
         type: Object,
         required: true,
+    },
+    search_key:{
+        type:String
     }
 })
+const page = usePage();
+const search = ref(page.props.search_key)
+
+watch(search,throttle((value)=>{
+    router.get('users',{search:value},{preserveState:true})
+},500))
 
 </script>
 
