@@ -29,7 +29,7 @@ class AuthController extends Controller
             $path = $request->file('image')->store('avators','public');
             $fields['image']= $path;
         }
-        
+
         $user = User::create($fields);
 
         Auth::login($user);
