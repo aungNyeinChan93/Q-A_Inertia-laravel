@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
 
     // questions
     Route::get('questions',[QuestionController::class,'index'])->name('questions.index');
+    Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
+    Route::post('questions/create',[QuestionController::class,'store'])->name('questions.store');
 });
 
 

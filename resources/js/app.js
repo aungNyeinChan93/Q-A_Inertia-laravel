@@ -1,4 +1,6 @@
 import "./bootstrap";
+import 'primeicons/primeicons.css'
+
 import { createApp, h } from "vue";
 import { createInertiaApp, Head, Link } from "@inertiajs/vue3";
 import Master from "./Pages/Layout/Master.vue";

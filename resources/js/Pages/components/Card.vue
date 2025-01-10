@@ -11,7 +11,14 @@
                     </h3>
 
                     <p class="mt-1 text-xs font-medium text-gray-600">{{ question.user.name }}</p>
+
+
+                    <div class="category p-1 my-1">
+                        <span class="px-2 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">test</span>
+                        <span class="px-2 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">test</span>
+                    </div>
                 </div>
+
 
                 <div class="hidden sm:block sm:shrink-0">
                     <img alt=""
@@ -26,18 +33,39 @@
                 </p>
             </div>
 
-            <dl class="mt-6 flex gap-4 sm:gap-6">
-                <div class="flex flex-col-reverse">
-                    <dt class="text-sm font-medium text-gray-600">Published</dt>
-                    <dd class="text-xs text-gray-500">{{ new Date(question.created_at).toLocaleDateString('en-GB') }}
-                    </dd>
-                </div>
+            <hr class="mt-6 text-red-900">
 
-                <div class="flex flex-col-reverse">
-                    <dt class="text-sm font-medium text-gray-600">Update Time</dt>
-                    <dd class="text-xs text-gray-500">{{ timeAgo(question.updated_at) }}</dd>
+            <div class="mt-2 reaction ">
+                <div class="grid grid-cols-12 p-2">
+                    <div class="col-span-6 flex space-x-5">
+                        <div>
+                            <i class="pi pi-user text-blue-400"></i>
+                            <small> 4 </small>
+                        </div>
+                        <div>
+                            <i class="pi pi-heart text-red-400"></i>
+                            <small> 4 </small>
+                        </div>
+                        <div>
+                            <i class="pi pi-star text-green-400"></i>
+                            <small> 4 </small>
+                        </div>
+                    </div>
+                    <div class="col-span-6 flex justify-end space-x-5">
+                        <div class="flex flex-col-reverse">
+                            <dt class="text-sm font-medium text-gray-600">Published</dt>
+                            <dd class="text-xs text-gray-500">{{ new
+                                Date(question.created_at).toLocaleDateString('en-GB') }}
+                            </dd>
+                        </div>
+
+                        <div class="flex flex-col-reverse">
+                            <dt class="text-sm font-medium text-gray-600">Update Time</dt>
+                            <dd class="text-xs text-gray-500">{{ timeAgo(question.updated_at) }}</dd>
+                        </div>
+                    </div>
                 </div>
-            </dl>
+            </div>
         </a>
     </div>
 </template>
