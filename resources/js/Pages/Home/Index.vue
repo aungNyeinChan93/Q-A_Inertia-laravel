@@ -32,7 +32,12 @@
 </template>
 
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+import { createToaster } from "@meforma/vue-toaster";
+
+const page=usePage();
+const toaster = createToaster({ position:"top-right" });
+toaster.show(`Welcome ${page.props.auth.user ? page.props.auth.user.name:''}`,{type:'success'});
 
 
 </script>

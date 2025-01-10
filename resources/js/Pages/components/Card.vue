@@ -14,8 +14,8 @@
 
 
                     <div class="category p-1 my-1">
-                        <span class="px-2 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">test</span>
-                        <span class="px-2 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">test</span>
+                        <span class="px-3 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">test</span>
+                        <span class="px-3 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">test</span>
                     </div>
                 </div>
 

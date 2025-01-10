@@ -5,6 +5,7 @@ import { createApp, h } from "vue";
 import { createInertiaApp, Head, Link } from "@inertiajs/vue3";
 import Master from "./Pages/Layout/Master.vue";
 import {ZiggyVue} from '../../vendor/tightenco/ziggy';
+import Toaster from "@meforma/vue-toaster";
 
 
 createInertiaApp({
@@ -23,6 +24,7 @@ createInertiaApp({
             .component("Head",Head)
             .component('Link',Link)
             .use(ZiggyVue)
+            .use(Toaster)
             .mount(el);
     },
 });

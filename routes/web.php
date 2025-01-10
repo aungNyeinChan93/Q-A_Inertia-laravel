@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserController;
 use Inertia\Inertia;
@@ -30,6 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('questions',[QuestionController::class,'index'])->name('questions.index');
     Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
     Route::post('questions/create',[QuestionController::class,'store'])->name('questions.store');
+
+    // profile
+    Route::get('profile',[ProfileController::class,'edit'])->name('profile.edit');
 });
 
 
