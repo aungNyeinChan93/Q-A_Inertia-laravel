@@ -2,7 +2,7 @@
 
     <div>
         <header class="bg-white">
-            <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-screen px-10">
                 <div class="flex h-16 items-center justify-between">
                     <div class="md:flex md:items-center md:gap-12">
                         <a class="block text-teal-600" href="#">
@@ -19,15 +19,18 @@
                         <nav aria-label="Global">
                             <ul v-if="$page.props.auth.user" class="flex items-center gap-6 text-sm">
                                 <li>
-                                    <Link class="text-gray-500 transition hover:text-gray-500/75" :href="route('home')"> Home </Link>
+                                    <Link class="text-gray-500 transition hover:text-gray-500/75" :href="route('home')">
+                                    Home </Link>
                                 </li>
 
                                 <li>
-                                    <Link class="text-gray-500 transition hover:text-gray-500/75" :href="route('users.index')"> Users </Link>
+                                    <Link class="text-gray-500 transition hover:text-gray-500/75"
+                                        :href="route('users.index')"> Users </Link>
                                 </li>
 
                                 <li>
-                                    <Link class="text-gray-500 transition hover:text-gray-500/75" :href="route('questions.index')"> Questions </Link>
+                                    <Link class="text-gray-500 transition hover:text-gray-500/75"
+                                        :href="route('questions.index')"> Questions </Link>
                                 </li>
 
                                 <li>
@@ -48,36 +51,66 @@
                     <div class="flex items-center gap-4">
                         <div class="sm:flex sm:gap-4">
                             <Link v-if="!$page.props.auth.user"
-                            :class="{'bg-gray-600':$page.component == 'Auth/login'}"
-                            class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-white shadow"
+                                :class="{ 'bg-gray-600': $page.component == 'Auth/login' }"
+                                class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-white shadow"
                                 :href="route('login')">
-                                Login
+                            Login
                             </Link>
 
                             <div class="hidden sm:flex">
-                                <Link v-if="!$page.props.auth.user" class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                                <Link v-if="!$page.props.auth.user"
+                                    class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
                                     :href="route('register')">
-                                    Register
+                                Register
                                 </Link>
                             </div>
 
+
                             <div class="hidden sm:flex">
                                 <Link v-if="$page.props.auth.user"
-                                    :class="{'bg-gray-600':$page.component == 'Auth/Logout'}"
-                                as="button" method="post" class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                                    :class="{ 'bg-gray-600': $page.component == 'Auth/Logout' }" as="button"
+                                    method="post"
+                                    class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
                                     :href="route('logout')">
-                                    Logout
+                                Logout
                                 </Link>
                             </div>
                         </div>
 
-                        <div class="block md:hidden">
-                            <button class="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            </button>
+                        <div v-if="$page.props.auth.user" class=" float-end">
+                            <div class="relative inline-block text-left">
+                                <div>
+                                    <button type="button"
+                                        class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                        id="menu-button" aria-expanded="true" aria-haspopup="true"
+                                        @click="toggleDropdown">
+                                        <img :src="$page.props.auth.user ? `storage/${$page.props.auth.user.image}` : `storage/avators/default.png`"
+                                            alt="" class=" w-[30px] h-[30px] rounded-full me-2 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M4 6h16M4 12h16M4 18h16" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <!-- drop box -->
+                                <div v-show="isDropdownOpen"
+                                    class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+                                    role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                                    <div class="py-1" role="none">
+                                        <Link :href="route('profile.edit')"
+                                            class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                                            id="menu-item-0">Account settings</Link>
+                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                            tabindex="-1" id="menu-item-1">Support</a>
+                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                            tabindex="-1" id="menu-item-2">License</a>
+                                        <Link v-if="$page.props.auth.user" :href="route('logout')" as="button" method="POST"
+                                            class="block w-full px-4 py-2 text-left text-sm text-gray-700"
+                                            role="menuitem" tabindex="-1" id="menu-item-3">Sign out</Link>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -85,13 +118,21 @@
         </header>
 
         <main>
-            <slot/>
+            <slot />
         </main>
     </div>
 
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
+const isDropdownOpen = ref(false);
+
+function toggleDropdown() {
+    isDropdownOpen.value = !isDropdownOpen.value;
+}
+
 
 </script>
 

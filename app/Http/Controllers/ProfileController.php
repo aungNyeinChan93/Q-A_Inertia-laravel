@@ -30,7 +30,7 @@ class ProfileController extends Controller
 
         if ($request->hasFile('image')) {
 
-            if (file_exists(public_path('/storage/' . $oldImage))) {
+            if (file_exists(public_path('/storage/' . $oldImage)) && $oldImage) {
                 unlink(public_path('/storage/' . $oldImage));
             }
 
