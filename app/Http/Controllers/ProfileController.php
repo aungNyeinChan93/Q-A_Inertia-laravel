@@ -41,7 +41,7 @@ class ProfileController extends Controller
 
         $user->update($fields);
 
-        return to_route('users.index');
+        return to_route('users.index')->with('message','Profile Update Success!');
 
     }
 }

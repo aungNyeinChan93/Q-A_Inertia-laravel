@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('questions',[QuestionController::class,'index'])->name('questions.index');
     Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
     Route::post('questions/create',[QuestionController::class,'store'])->name('questions.store');
+    Route::get('questions/detail/{id}',[QuestionController::class,'show'])->name('questions.show');
 
     // profile
     Route::get('profile',[ProfileController::class,'edit'])->name('profile.edit');

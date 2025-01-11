@@ -1,6 +1,15 @@
 <template>
 
     <Head title="Users" />
+
+    <div class="w-full text-center mx-auto ">
+        <div class="p-4 text-white w-[500px] bg-green-400/80 rounded mx-auto flex justify-between items-center"
+            v-if="flash.message">
+            {{ flash.message }}
+            <button @click="flash.message = ''" class="ml-4 bg-gray-500 text-white px-2 py-1 rounded">Close</button>
+        </div>
+    </div>
+
     <div class="mx-10 flex justify-between items-center">
         <p class="py-2 bg-green-400 rounded-sm w-[200px] text-xl text-center">User List</p>
         <div>
@@ -65,16 +74,19 @@ defineProps({
         type: Object,
         required: true,
     },
-    search_key:{
-        type:String
+    search_key: {
+        type: String
+    },
+    flash:{
+        type:Object,
     }
 })
 const page = usePage();
 const search = ref(page.props.search_key)
 
-watch(search,throttle((value)=>{
-    router.get('users',{search:value},{preserveState:true})
-},500))
+watch(search, throttle((value) => {
+    router.get('users', { search: value }, { preserveState: true })
+}, 500))
 
 </script>
 

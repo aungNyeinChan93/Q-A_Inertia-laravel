@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
@@ -35,5 +36,14 @@ class QuestionController extends Controller
         $question = Question::create($fields);
 
         return to_route('questions.index')->with('message',$question->title .' has been created!');
+    }
+
+    // show
+    public function show($id){
+
+        $question = Question::with('user')->findOrFail($id);
+        return Inertia::render('Question/Show',[
+            'question'=>$question,
+        ]);
     }
 }
