@@ -1,5 +1,5 @@
 <template>
-    <div class="card p-2 mt-2 rounded">
+    <div class="card p-1 mt-1">
         <div class="card-header bg-gray-300 py-1 px-3 rounded-t-xl ">
             All Tag
         </div>
