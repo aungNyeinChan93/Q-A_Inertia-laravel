@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\QuestionComment;
 use Inertia\Inertia;
 use App\Models\Question;
 use App\Models\QuestionLike;
@@ -16,15 +17,16 @@ class QuestionController extends Controller
         $questions = Question::query()->with(['user', 'comments', 'likes', 'saves', 'tags'])
             ->orderBy("created_at", 'desc')
             ->paginate(2);
-
         foreach ($questions as $key => $question) {
             $questions[$key]->is_like = $this->likeDetail($question->id)['is_like'];
             $questions[$key]->likes_count = $this->likeDetail($question->id)['likes_count'];
         }
         // return $questions;
 
+
         return inertia("Question/Index", [
             'questions' => $questions,
+            // 'comments'=>$comments
         ]);
     }
 
@@ -67,10 +69,12 @@ class QuestionController extends Controller
     // show
     public function show($id)
     {
+        $comments =QuestionComment::with('user')->get() ;
 
         $question = Question::with('user', 'comments', 'likes', 'saves', 'tags')->findOrFail($id);
         return Inertia::render('Question/Show', [
             'question' => $question,
+            'comments' =>$comments
         ]);
     }
 
