@@ -5,14 +5,7 @@
                 <Card :question="question" />
                 <div class="comment">
                     <h3 class="text-2xl text-green-500 p-2 underline ">Comments</h3>
-                    <SampleCard/>
-                    <SampleCard/>
-                    <SampleCard/>
-                    <SampleCard>
-                        <template v-slot:footer>
-                            This is footer
-                        </template>
-                    </SampleCard>
+                    <SampleCard v-for="comment in question.comments" :key="comment.id" :comment="comment" />
                 </div>
                 <div class="mt-3 p-2">
                     <Link class="px-5 py-2 rounded bg-blue-500 hover:bg-blue-400" :href="route('questions.index')">Back

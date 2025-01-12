@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -40,8 +41,11 @@ class HandleInertiaRequests extends Middleware
                 ? $request->user()->only('id', 'name', 'email', 'image')
                 : null,
             'flash' => [
-                'message' => fn() => $request->session()->get('message')
+                'message' => fn() => $request->session()->get('message'),
+                'success'=>fn()=>$request->session()->get('success'),
+                'fail'=>fn()=>$request->session()->get('fail'),
             ],
+            'tag'=>fn()=> Tag::query()->get(['name','slug']),
         ]);
     }
 }

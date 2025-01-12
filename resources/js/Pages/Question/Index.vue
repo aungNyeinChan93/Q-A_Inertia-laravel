@@ -35,6 +35,7 @@
                     </div>
 
                     <div class="col-span-7 p-2">
+
                         <Card v-for="question in questions.data" :key="question" :question="question" />
                         <div class="paginator flex justify-center items-center my-2">
                             <Link :class="{ 'bg-red-400': link.active, 'text-white/30': !link.url }"

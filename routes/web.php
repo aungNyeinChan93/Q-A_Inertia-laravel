@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
     Route::post('questions/create',[QuestionController::class,'store'])->name('questions.store');
     Route::get('questions/detail/{id}',[QuestionController::class,'show'])->name('questions.show');
+    Route::get('questions/like/{id}',[QuestionController::class,'like'])->name('questions.like');
 
     // profile
     Route::get('profile',[ProfileController::class,'edit'])->name('profile.edit');

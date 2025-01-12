@@ -1,21 +1,27 @@
 <template>
+    <!-- {{ question.commemts }} -->
     <div class="card my-2 bg-white rounded-xl">
-        <Link :href="route('questions.show',question.id)" class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
+        <div
+            class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
             <span
                 class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
 
             <div class="sm:flex sm:justify-between sm:gap-4">
                 <div>
-                    <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
-                        {{ question.title }}
-                    </h3>
+                    <Link :href="route('questions.show', question.id)">
+                        <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+                            {{ question.title }}
+                        </h3>
+                    </Link>
 
                     <p class="mt-1 text-xs font-medium text-gray-600">{{ question.user.name }}</p>
 
 
                     <div class="category p-1 my-1">
-                        <span class="px-3 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">test</span>
-                        <span class="px-3 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">test</span>
+                        <span v-for="tag of question.tags" :key="tag.id"
+                            class="px-3 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">{{ tag.name }}
+                        </span>
+                        <!-- <span class="px-3 py-1 rounded-full bg-green-300 hover:bg-green-400 me-2 text-xs">test</span> -->
                     </div>
                 </div>
 
@@ -40,15 +46,16 @@
                     <div class="col-span-6 flex space-x-5">
                         <div>
                             <i class="pi pi-user text-blue-400"></i>
-                            <small> 4 </small>
+                            <small class="ms-1"> {{ question.comments?.length }} </small>
                         </div>
-                        <div>
-                            <i class="pi pi-heart text-red-400"></i>
-                            <small> 4 </small>
+                        <div @click="like(question.id)">
+                            <i v-if="question.is_like " class="pi pi-heart-fill text-red-600"></i>
+                            <i v-else class="pi pi-heart text-red-600"></i>
+                            <small  class="ms-1"> {{ question.likes?.length }} </small>
                         </div>
                         <div>
                             <i class="pi pi-star text-green-400"></i>
-                            <small> 4 </small>
+                            <small class="ms-1"> {{ question.saves?.length }} </small>
                         </div>
                     </div>
                     <div class="col-span-6 flex justify-end space-x-5">
@@ -66,11 +73,12 @@
                     </div>
                 </div>
             </div>
-        </Link>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { Link, router } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 defineProps({
@@ -88,6 +96,10 @@ const timeAgo = (date) => {
     if (diff < 1440) return `${Math.floor(diff / 60)} hours ago`;
     return `${Math.floor(diff / 1440)} days ago`;
 };
+
+const like = (id) => {
+    router.get(`questions/like/${id}`);
+}
 
 
 </script>
