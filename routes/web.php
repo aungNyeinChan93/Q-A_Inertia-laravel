@@ -35,11 +35,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('questions/detail/{id}',[QuestionController::class,'show'])->name('questions.show');
     Route::get('questions/like/{id}',[QuestionController::class,'like'])->name('questions.like');
 
+    // comments
+    Route::get('comments/question/{id}',[CommentController::class,'create'])->name('comments.create');
+
     // profile
     Route::get('profile',[ProfileController::class,'edit'])->name('profile.edit');
     Route::post('profile',[ProfileController::class,'update'])->name('profile.update');
 
-    // comments
+
 });
 
 

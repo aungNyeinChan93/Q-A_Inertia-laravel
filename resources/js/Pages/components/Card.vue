@@ -48,7 +48,7 @@
                             <i v-else class="pi pi-heart text-red-600"></i>
                             <small class="ms-1"> {{ question.likes?.length }} </small>
                         </div>
-                        <div>
+                        <div @click="addComment(question.id)">
                             <i class="pi pi-comments text-blue-400"></i>
                             <small class="ms-1"> {{ question.comments?.length }} </small>
                         </div>
@@ -78,7 +78,7 @@
 
 <script setup>
 import { Link, router } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { comment } from 'postcss';
 
 defineProps({
     question: {
@@ -98,6 +98,10 @@ const timeAgo = (date) => {
 
 const like = (id) => {
     router.get(`questions/like/${id}`);
+}
+
+const addComment = (id) => {
+    router.get(`/comments/question/${id}`);
 }
 
 
