@@ -76,16 +76,25 @@ class QuestionController extends Controller
 
     public function like($id)
     {
+        $questionLike = QuestionLike::where('question_id', operator: $id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
 
-        $questionLike = QuestionLike::updateOrCreate([
-            'user_id' => auth()->user()->id,
-            'question_id' => $id,
-        ], [
+        if(!$questionLike){
+            QuestionLike::updateOrCreate([
+                'user_id' => auth()->user()->id,
+                'question_id' => $id,
+            ], [
 
-        ]);
+            ]);
+        }else{
+            $questionLike->delete();
+        }
 
         // return $questionLike;
-        return back()->with('message', 'like success!');
+        return back()->with('message', 'success!');
 
     }
+
+
 }

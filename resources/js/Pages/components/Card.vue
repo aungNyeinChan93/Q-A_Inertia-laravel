@@ -1,17 +1,16 @@
 <template>
     <!-- {{ question.commemts }} -->
     <div class="card my-2 bg-white rounded-xl">
-        <div
-            class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
+        <div class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
             <span
                 class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
 
             <div class="sm:flex sm:justify-between sm:gap-4">
                 <div>
                     <Link :href="route('questions.show', question.id)">
-                        <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
-                            {{ question.title }}
-                        </h3>
+                    <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+                        {{ question.title }}
+                    </h3>
                     </Link>
 
                     <p class="mt-1 text-xs font-medium text-gray-600">{{ question.user.name }}</p>
@@ -44,14 +43,14 @@
             <div class="mt-2 reaction ">
                 <div class="grid grid-cols-12 p-2">
                     <div class="col-span-6 flex space-x-5">
-                        <div>
-                            <i class="pi pi-user text-blue-400"></i>
-                            <small class="ms-1"> {{ question.comments?.length }} </small>
-                        </div>
                         <div @click="like(question.id)">
-                            <i v-if="question.is_like " class="pi pi-heart-fill text-red-600"></i>
+                            <i v-if="question.is_like" class="pi pi-heart-fill text-red-600"></i>
                             <i v-else class="pi pi-heart text-red-600"></i>
-                            <small  class="ms-1"> {{ question.likes?.length }} </small>
+                            <small class="ms-1"> {{ question.likes?.length }} </small>
+                        </div>
+                        <div>
+                            <i class="pi pi-comments text-blue-400"></i>
+                            <small class="ms-1"> {{ question.comments?.length }} </small>
                         </div>
                         <div>
                             <i class="pi pi-star text-green-400"></i>
